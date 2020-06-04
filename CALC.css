@@ -2,29 +2,58 @@ body {
     display: flex;
     justify-content: center;
     font-family: sans-serif;
+    background-color: #979797;
 }
 
 #calc {
+    margin-top: 7vw;
     width: 20%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+#display, #container {
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 #display {
-    background-color: #abbdbc;
+    background-color: #000000;
+    color: lightgrey;
     width: 100%;
-    height: 5VW;
+    height: 7.5VW;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
+    font-size: 25px;
+    font-weight: lighter;
 }
 
 #container {
     width: 100%;
     display: flex;
     flex-direction: column;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgb(255, 255, 255);
+    border-bottom-left-radius: 3%;
+    border-bottom-right-radius: 3%;
+}
+
+button {
+    font-size: larger;
+    font-weight: lighter;
+}
+
+button:focus:not(.focus-visible) {
+    outline: none;
+}
+
+button:active {
+    background-color: rgb(180, 180, 180);
 }
 
 .row {
@@ -32,19 +61,40 @@ body {
     flex-direction: row;    
 }
 
-.numKey, .opKey, #equals {
+#row5 > button, #row6 > button {
     width: 25%;
+    border-radius: 100%;
+    height: 4.5vw;
+}
+
+.numKey, #clear, #backspace {
+    width: 33.3%;
+    height: 6vw;
+    border-radius: 100%;
+}
+
+.opKey {
+    width: auto;
     height: 3vw;
 }
 
 .numKey {
-    background-color: #c6fffc;
+    background-color: #ffffff;
+    color: rgb(65, 204, 250);
+    border-style: solid;
+    border-color:  rgb(65, 204, 250);
+    border-width: .5px;
 }
 
-.opKey {
-    background-color: lightsalmon;
+.opKey, #equals, #dec {
+    background-color: rgb(255, 255, 255);
+    color: rgb(255, 109, 109);
+    border-style: solid;
+    border-color:  rgb(255, 109, 109);
+    border-width: .5px;
 }
 
-#clear {
-    width: 100%;
+#clear, #backspace {
+    background-color: rgb(255, 255, 255);
+
 }
