@@ -1,6 +1,7 @@
 //fix stream of operations to utilize last selected operator as opposed to first (waitingForSecondOperand)
 
 const wind = document.querySelector('#window');
+const lastOpWindow = document.querySelector('#lastOpWindow');
 const numKeys = document.querySelectorAll('.numKey');
 const opKeys = document.querySelectorAll('.opKey');
 const clearBut = document.querySelector('#clear');
@@ -56,6 +57,7 @@ clearWindow = () => {
     negPressed = false;
     displayValue = '0';
     updateDisplay(displayValue);
+    lastOpWindow.innerHTML = ``;
 }
 
 opKeyPress = (e) => {
@@ -84,10 +86,12 @@ opKeyPress = (e) => {
                 negPressed = false;
                 resultVal = operate(operator, parseFloat(prevVal), parseFloat(newVal));
                 console.log(`opKeyPress called: ${prevVal} ${operator} ${newVal} is ${resultVal}`);
+                lastOpWindow.innerHTML = `${prevVal} ${operator} ${newVal}`;
                 if (resultVal ==='I can\'t divide by zero! clear me!'){
-                    updateDisplay(resultVal);
+                    updateDisplay(`nice try! clear me!`);
                 }
                 else{
+                    resultVal = round(resultVal);
                     prevVal = resultVal;
                     displayValue = ` ${resultVal} `;
                     updateDisplay(displayValue);
@@ -123,11 +127,12 @@ equalPress = () => {
         opPressed = false;
         resultVal = operate(operator, parseFloat(prevVal), parseFloat(newVal));
         console.log(`equalPress called: ${prevVal} ${operator} ${newVal} is ${resultVal}`);
-        
+        lastOpWindow.innerHTML = `${prevVal} ${operator} ${newVal}`;
         if (resultVal ==='I can\'t divide by zero! clear me!'){
-            updateDisplay(resultVal);
+            updateDisplay(`nice try! clear me!`);
         }
         else {
+            resultVal = round(resultVal);
             prevVal = resultVal;
             displayValue = ` ${resultVal}`
             updateDisplay(displayValue);
@@ -140,8 +145,8 @@ equalPress = () => {
 }
 
 round = (value) => {
-    if (countDecimals(value) > 10){
-        return Number(Math.round(value + 'e10') + 'e-10'); 
+    if (countDecimals(value) > 16){
+        return Number(Math.round(value + 'e16') + 'e-16'); 
     }
     else return value;
 }
@@ -164,11 +169,11 @@ backspace = () => {
 }
 
 operate = (operator, arg1, arg2) => {
-    if (operator === 'mult'){
+    if (operator === '*'){
        return multiply(arg1, arg2)
     }
 
-    if (operator === 'div'){
+    if (operator === '/'){
         if (arg2 === 0){
             return 'I can\'t divide by zero! clear me!';
         }
@@ -177,19 +182,19 @@ operate = (operator, arg1, arg2) => {
         }
     }
 
-    if (operator === 'sub'){
+    if (operator === '-'){
         return subtract(arg1, arg2)
     }
 
-    if (operator === 'add'){
+    if (operator === '+'){
         return sum(arg1, arg2)
     }
 
-    if (operator === 'mod'){
+    if (operator === '%'){
         return mod(arg1, arg2)
     }
 
-    if (operator === 'exp'){
+    if (operator === '^'){
         return exp(arg1, arg2)
     }
 }
